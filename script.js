@@ -24,7 +24,26 @@ players.proto = {
 
 var o = players("Omar");
 
-let counter = 0;
+//
+
+// only used for square event listener
+// let counter = 0;
+
+function turnNum() {
+    let counter = 0;
+
+    const getCounter = () => counter;
+
+    const increment = () => counter++;
+
+    return {getCounter, increment};
+}
+
+const counter = turnNum();
+
+// const counter = ctr(-1);
+
+
 
 function playerMark(ctr) {
     let mark = (ctr % 2) ? 'X' : 'O';
@@ -62,7 +81,8 @@ let oInc = 0;
 for (let cell in tcells) {
     tcells[cell].addEventListener('click', (e) => {
         if (tcells[cell].innerHTML == '-') {
-            let mark = playerMark(++counter);
+            counter.increment();
+            let mark = playerMark(counter.getCounter());
             tcells[cell].innerHTML = mark;
             let coord = tcells[cell].id.toString().slice(4, 5);
 
@@ -81,13 +101,13 @@ for (let cell in tcells) {
                 oCoords[oInc] = ([row, column]);
                 oInc++;
             }
-
-            if (counter > 4) {      // 5 turns is the minimum for a win
+            // console.log("counter = " + counter.getCounter);
+            if (counter.getCounter() > 4) {      // 5 turns is the minimum for a win
                 // console.log("xCoords = " + xCoords + ", oCoords = " + oCoords);
                 checkWin(xCoords, oCoords, mark);
             }
 
-            if(counter==9) {
+            if(counter.getCounter()==9) {
                 // if there is no win
                 console.log("tie");
             }
