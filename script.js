@@ -24,10 +24,7 @@ players.proto = {
 
 var o = players("Omar");
 
-//
-
-// only used for square event listener
-// let counter = 0;
+// VV
 
 function turnNum() {
     let counter = 0;
@@ -36,24 +33,19 @@ function turnNum() {
 
     const increment = () => counter++;
 
-    return {getCounter, increment};
+    return { getCounter, increment };
 }
 
 const counter = turnNum();
-
-// const counter = ctr(-1);
-
-
 
 function playerMark(ctr) {
     let mark = (ctr % 2) ? 'X' : 'O';
     return mark;
 }
 
-
+// move from global
 const tcells = Array.from(document.getElementsByClassName("cell"));
 
-// create table in console
 var x = new Array(3);
 
 for (var i = 0; i < 3; i++) {
@@ -64,7 +56,6 @@ for (var i = 0; i < 3; i++) {
         tcells[3 * i + j].innerHTML = x[i][j];
     }
 }
-
 
 
 let xCoords = new Array(5);
@@ -91,8 +82,6 @@ for (let cell in tcells) {
             console.log("r = " + row + ", c = " + column);
             x[row][column] = mark;
 
-            // console.log("mark = " + mark);
-            // console.log("row = " + row + ", column = " + column);
             if (mark === 'X') {
                 xCoords[xInc] = ([row, column]);
                 xInc++;
@@ -101,18 +90,15 @@ for (let cell in tcells) {
                 oCoords[oInc] = ([row, column]);
                 oInc++;
             }
-            // console.log("counter = " + counter.getCounter);
             if (counter.getCounter() > 4) {      // 5 turns is the minimum for a win
-                // console.log("xCoords = " + xCoords + ", oCoords = " + oCoords);
                 checkWin(xCoords, oCoords, mark);
             }
 
-            if(counter.getCounter()==9) {
+            if (counter.getCounter() == 9) {
                 // if there is no win
                 console.log("tie");
             }
-            // add to gameBoard
-            // x[i][j] = mark;
+
         }
 
     });
@@ -150,12 +136,12 @@ function winConditions() {
     return [rowWin, colWin];
 }
 
-let xRows = [];
-let xCols = [];
-let oRows = [];
-let oCols = [];
 
 function checkWin(xC, oC, mark) {
+    let xRows = [];
+    let xCols = [];
+    let oRows = [];
+    let oCols = [];
 
     function search(coordinates, key) {
         console.log('search function');
@@ -184,7 +170,7 @@ function checkWin(xC, oC, mark) {
         for (let j = 0; j < 3; j++) {
             if (search(coords, [i, 0]) && search(coords, [i, 1]) && search(coords, [i, 2])) {
                 console.log(mark + " has a row match");
-                 return true;
+                return true;
                 // break;
             }
         }
@@ -198,69 +184,7 @@ function checkWin(xC, oC, mark) {
         console.log(mark + " has a diagonal match");
     }
 
-    // for (let i = 0; i < len; i++) {
-    //     if (search(coords, [i, 0]) && search(coords, [i, 1]) && search(coords, [i, 2])) {
-    //         console.log(mark + " has a row match");
-    //     }
-    //     // check rows
-    //     // if [i,0] [i,1] [i,2] exists
-
-
-
-    //     // check columns
-
-    // }
-
-    // let len = (xC.length > oC.length) ? xC.length : oC.length;
-    // console.log("len = " + len + ", xClen = " + xC.length + ", oClen = " + oC.length);
-
-    // for (let i = 0; i < len; i++) {     // separate into row / column coordinates 
-    //     if (xC[i]) {
-    //         xRows.push(xC[i][0]);
-    //         xCols.push(xC[i][1]);
-    //     }
-
-    //     if (oC[i]) {
-    //         oRows.push(oC[i][0]);
-    //         oCols.push(oC[i][1]);
-    //     }
-    // }
-
-    // console.log("xR = " + xRows + ", xC = " + xCols + ", oR = " + oRows + ", oC = " + oCols);
-
-    // delete/clear xC and oC after doing this (line 240)
-
-
-
     console.log("checkwin");
-
-    for (let k = 0; k < 3; k++) {
-
-    }
-
-
-
-    // brute force checking matches, rows
-    let match = 0;
-    let xcr = 0;
-    let xcc = 0;
-
-    for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 3; j++) {   // traverse grid
-            // if(tcells[cell].innerHTML!='-'){    // if the row/col/diag contains '-', break inner loop
-            //     console.log(tcells[cell].innerHTML);
-            // }
-        }
-        // if 0,0 1,1 and 2,2 exist in xRows, xCols
-        for (let k = 0; k < xRows.length; k++) {
-            if (xRows[k] == i) {
-                xcr++;
-            }
-            if (xCols[k] == i) {
-                xcc++;
-            }
-        }
-    }
 
     xRows = [];
     xCols = [];
